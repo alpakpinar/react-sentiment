@@ -13,6 +13,7 @@ import AppHeader from './components/AppHeader';
 import './App.css';
 
 const BASE_URL = 'https://react-sentiment.herokuapp.com/';
+// const BASE_URL = 'http://localhost:5000/';
 
 function CustomTextField() {
   const [text, setText] = useState("");

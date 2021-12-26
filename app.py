@@ -8,7 +8,3 @@ app = Flask(__name__)
 # CORS(app)
 api = Api(app)
 api.add_resource(ApiHandler, "/api/sentiment", resource_class_kwargs={"sentence" : "This is good!"})
-
-@app.route('/')
-def serve():
-    return {"Msg" : "Test"}
