@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_cors import CORS
 from api.apiHandler import ApiHandler
 
-app = Flask(__name__, static_folder='frontend/build')
+app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
 # CORS(app)
 api = Api(app)
