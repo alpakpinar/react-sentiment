@@ -11,4 +11,4 @@ api.add_resource(ApiHandler, "/api/sentiment", resource_class_kwargs={"sentence"
 
 @app.route('/', defaults={'path' : ''})
 def serve(path):
-    return send_from_directory(app.static_folder)
+    return send_from_directory(app.static_folder, 'index.html')
