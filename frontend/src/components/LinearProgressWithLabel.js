@@ -8,24 +8,28 @@ import {
 
 export default function LinearProgressWithLabel(props) {
     return (
-        <Box 
-            display="flex" 
-            mx="auto" 
-            my={2} 
-            width={props.width}
-            alignItems="center"
-        >
-            <Box width={1} mr={1}>
-                <LinearProgress 
-                    variant='buffer'
-                    value={props.score}
-                />
+        <div>
+            <Box 
+                display="flex" 
+                mx="auto" 
+                my={2} 
+                width={props.width}
+                alignItems="center"
+            >
+                <Box width={1} mr={1}>
+                    <LinearProgress 
+                        variant='buffer'
+                        value={props.score}
+                    />
+                </Box>
+                <Box minWidth={35}>
+                    <Typography variant="body2" color="primary">
+                        {`${Math.round(props.score)}%`}
+                    </Typography>
+                </Box>
             </Box>
-            <Box minWidth={35}>
-                <Typography variant="body2" color="primary">
-                    {`${Math.round(props.score)}%`}
-                </Typography>
-            </Box>
-        </Box>
+            <Box>{props.message ? props.message : ""}</Box>
+        </div>
+
     )
 }

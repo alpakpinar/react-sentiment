@@ -18,15 +18,30 @@ const BASE_URL = 'https://react-sentiment.herokuapp.com/';
 function CustomTextField() {
   const [text, setText] = useState("");
   const [score, setScore] = useState(0);
+  const [message, setMessage] = useState("");
 
   const HORIZONTAL_WIDTH = 0.5;
 
   const updateText = event => {
     const text = event.target.value;
     if (text === "") {
+      setMessage("");
       return setScore(0);
     }
     setText(text);
+  };
+
+  const updateMessage = (score) => {
+    // Update message based on the sentiment score.
+    if (score < 30) {
+      setMessage("Woah, what made you angry?")
+    }
+    else if (score > 70) {
+      setMessage("Woohoo! You are quite positive today!")
+    }
+    else {
+      setMessage("Hmm not quite sure, that looks pretty neutral!")
+    }
   };
 
   const handleSubmit = (event, fromKeyPress=true) => {
@@ -43,6 +58,7 @@ function CustomTextField() {
         // Retrieve the sentiment score out of the JSON object
         // Also some minor cleaning is done here to remove additional quotation marks
         const score = Number(json.sentiment_score.replaceAll('"', '')) * 100;
+        updateMessage(score);
         setScore(score);
       }
     });
@@ -51,13 +67,15 @@ function CustomTextField() {
   return (
     <Box my={10} alignItems='center' justifyContent='center'>
       <Box mx="auto" my={5} width={HORIZONTAL_WIDTH}>
-        <Typography variant="h4">
+        <Typography variant="h4" style={{ fontWeight: "bold" }}>
           Sentiment Predictor
         </Typography>
       </Box>
       <Box mx="auto" my={2} width={HORIZONTAL_WIDTH}>
         <Typography variant="body1">
-          Enter an English phrase down below and get a score based on the sentiment of the phrase!
+          Enter an English phrase below and get a score based on the sentiment of the phrase!
+        </Typography>
+        <Typography variant="body1">
           Score range is 0-100, 0 being the lowest sentiment and 100 being the highest.
         </Typography>
       </Box>
@@ -65,6 +83,7 @@ function CustomTextField() {
         <Box width={1} mr={2}>
           <TextField 
             variant="outlined"
+            size="small"
             placeholder='Type your sentence here...'
             onChange={updateText}
             onKeyDown={handleSubmit}
@@ -85,6 +104,7 @@ function CustomTextField() {
       <LinearProgressWithLabel 
         width={HORIZONTAL_WIDTH}
         score={score}
+        message={message}
       />
     </Box>
   )
